@@ -12,12 +12,18 @@ export default {
     return {
       courseId: this.$route.params.courseId,
       courseNavigation: [],
+      courseItems: [],
     };
   },
   mounted() {
     Axios.get(`http://localhost:3000/course/${this.courseId}/navigation`)
     .then((response) => {
       this.courseNavigation = response.data.navigation;
+      Axios.get(``)
+      .then((response) => {
+        // eslint-disable-next-line
+        console.log(response.data);
+      })
     });
     // eslint-disable-next-line
     console.log(this.courseNavigation);

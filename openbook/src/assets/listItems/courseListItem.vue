@@ -33,6 +33,9 @@ export default {
   .course-link {
     text-decoration: none;
   }
+  .course-link :hover {
+    
+  }
   .course-title {
   	font-family: Didot;
   	font-size: 24px;
