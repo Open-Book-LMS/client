@@ -1,12 +1,11 @@
 <template>
-  <div id='profileCard'>
-    <div>
-      <!-- <img class="profile-image" :src="selectImage" alt="OpenBook profile image"/> -->
-    </div>
-    <div class="profile-background">
-      <p class="title">
+  <div id='profileCard' class="profile-background">
+    <div class="profile-imgage-container">
+        <img class="profile-image" :src="selectImage" alt="OpenBook profile image"/>
+      </div>
+      <span class="title">
         Name
-      </p>
+      </span>
     </div>
   </div>
 </template>
@@ -14,12 +13,13 @@
 <script>
 export default {
   name: 'profileCard',
-  // computed: {
-  //   selectImage() {
-  //     if(this.$route.name == 'Dashboard'){
-  //
-  //     }
-  //   },
+  computed: {
+    selectImage() {
+      if (this.$route.name === 'Dashboard') {
+        return '../../../static/logo.png';
+      }
+      return '';
+    },
   //   selectTitle() {
   //     if() {
   //
@@ -29,13 +29,14 @@ export default {
   //
   //     }
   //   },
-  // },
+  },
 };
 </script>
 <style lang="scss" scoped>
 $white: #e9e9e9;
 $black-50: rgba(0, 0, 0, 0.5);
 $slate-green: #65826f;
+$charcoal-grey: #4a4a4a;
 
 .profile-background {
 	width: 314px;
@@ -43,13 +44,31 @@ $slate-green: #65826f;
 	border-radius: 8px;
 	background-color: $white;
 	box-shadow: inset 0 1px 3px 0 $black-50;
+  margin-left: 20px;
 }
 
 .profile-image {
-	width: 90px;
+	width: auto;
 	height: 90px;
+  float:left;
+  margin-left: 10px;
+  background-color: white;
   clip-path: circle(45px at center);
-	box-shadow: 0 2px 4px 0 $black-50;
+  border: solid 1px $charcoal-grey;
+  border-radius: 90px;
+  box-shadow: 0 2px 4px 0 $black-50;
+  margin-top: -10px;
+  // clip-path: circle(45px at center);
+}
+
+.profile-imgage-container {
+    // float:left;
+    // margin-left: 10px;
+    // background-color: white;
+    // clip-path: circle(40px at center);
+    // border: solid 1px $charcoal-grey;
+    // border-radius: 45px;
+  	// box-shadow: 0 2px 4px 0 $black-50;
 }
 
 .title {
@@ -57,7 +76,8 @@ $slate-green: #65826f;
 	font-size: 36px;
 	font-weight: 900;
 	line-height: 0.72;
-	text-align: left;
 	color: $slate-green;
+  margin-left: 5px;
+  margin-top: 200px;
 }
 </style>

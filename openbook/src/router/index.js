@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Dashboard from '../pages/dashboard';
+import coursePage from '../pages/course';
 
 Vue.use(Router);
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Dashboard',
       component: Dashboard,
+    },
+    {
+      path: '/course/:courseId',
+      name: 'coursePage',
+      component: coursePage,
     },
   ],
 });
