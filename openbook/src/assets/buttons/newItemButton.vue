@@ -6,10 +6,12 @@
 <script>
 export default {
   name: 'newItemButton',
-  data() {
-
-  }
-}
+};
 </script>
 <style lang="scss" scoped>
+  $charcoal-grey: #4a4a4a;
+
+  #newItemButton {
+    border-bottom: 1px solid $charcoal-grey;
+  }
 </style>

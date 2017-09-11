@@ -1,9 +1,9 @@
 <template>
   <div id='topbar'>
-    <profileCard></profileCard>
-    <div class="line">
-
+    <div class="topbar-content-wrapper">
+      <profileCard></profileCard>
     </div>
+    <div class="line"></div>
   </div>
 </template>
 <script>
@@ -17,14 +17,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$black-50: rgba(0, 0, 0, 0.5);
+  $black-50: rgba(0, 0, 0, 0.5);
 
-.line {
-	width: 90%;
-  margin: auto;
-	height: 10px;
-	box-shadow: 0 2px 4px 0 $black-50;
-	background-color: #979797;
-  margin-top: 25px;
-}
+  .topbar-content-wrapper {
+    display:grid;
+    grid-template-columns: 5% 25% 20px auto 5%;
+  }
+  .line {
+  	width: 90%;
+    margin: auto;
+  	height: 10px;
+  	box-shadow: 0 2px 4px 0 $black-50;
+  	background-color: #979797;
+    margin-top: 25px;
+  }
 </style>

@@ -1,18 +1,24 @@
 <template>
   <div id='courseNavigationCard' class="navigation-background">
-
+    <newItemButton></newItemButton>
+    <div v-for="item in this.$store.state.courses">
+      <courseNavigationListItem :itemData="item"></courseNavigationListItem>
+    </div>
   </div>
 </template>
 <script>
 import courseNavigationListItem from '../listItems/courseNavigationListItem';
+import newItemButton from '../buttons/newItemButton';
 
 export default {
   name: 'courseNavigationCard',
   components: {
     courseNavigationListItem,
+    newItemButton,
   },
-  data() {
-
+  mounted() {
+    // eslint-disable-next-line
+    console.log(this.$store.state.courses)
   },
 };
 </script>
@@ -21,11 +27,10 @@ $white: #e9e9e9;
 $black-50: rgba(0, 0, 0, 0.5);
 
 .navigation-background {
-	width: 314px;
-	height: 814px;
 	background-color: $white;
 	box-shadow: inset 0 1px 3px 0 $black-50;
-  margin-top: 50px;
-  margin-left: 20px;
+  // margin-top: 50px;
+  // margin-left: 20px;
+  grid-column: 2 / span 1;
 }
 </style>
