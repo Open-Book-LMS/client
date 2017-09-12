@@ -15,6 +15,10 @@ export default {
   components: {
     gradebookNav,
   },
+  mounted() {
+    this.$store.dispatch('getGradableAssignments');
+    this.$store.dispatch('getSubmissions');
+  },
 };
 </script>
 <style lang="scss" scoped>

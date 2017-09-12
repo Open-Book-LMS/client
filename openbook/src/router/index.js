@@ -48,11 +48,13 @@ export default new Router({
           path: 'assignment',
           name: 'assignmentGradebook',
           component: assignmentGradebook,
+          props: { students: gradebook.studentSubmissions },
         },
         {
           path: 'roster',
           name: 'rosterGradebook',
           component: rosterGradebook,
+          props: { students: gradebook.studentSubmissions },
         },
       ],
     },

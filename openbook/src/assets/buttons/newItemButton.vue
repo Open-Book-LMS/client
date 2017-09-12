@@ -1,6 +1,6 @@
 <template>
   <div id='newItemButton'>
-    <router-link :to="{ name: 'newCourseTool'}"><h2>New Item <i class="fa fa-plus-square-o" aria-hidden="true"></i></h2></router-link>
+    <router-link :to="{ name: 'newCourseTool'}" exact><h2>New Item <i class="fa fa-plus-square-o" aria-hidden="true"></i></h2></router-link>
   </div>
 </template>
 <script>

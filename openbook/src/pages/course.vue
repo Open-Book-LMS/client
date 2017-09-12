@@ -31,6 +31,7 @@ export default {
     //   this.courseNavigation = response.data;
     // });
     this.$store.dispatch('getCourseItems', { courseId: this.courseId });
+    this.$store.dispatch('getStudents', { courseId: this.courseId });
   },
 };
 </script>
