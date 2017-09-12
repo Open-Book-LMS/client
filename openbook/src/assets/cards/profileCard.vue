@@ -79,5 +79,6 @@ $charcoal-grey: #4a4a4a;
 	font-weight: 900;
 	line-height: 0.72;
 	color: $slate-green;
+  vertical-align: middle;
 }
 </style>

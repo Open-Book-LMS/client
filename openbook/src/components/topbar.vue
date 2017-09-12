@@ -24,7 +24,7 @@ export default {
 
   .topbar-content-wrapper {
     display: grid;
-    grid-template-columns: 5% 25% 20px auto 10% 5%;
+    grid-template-columns: 5% 25% 20px auto 15% 5%;
   }
   .line {
   	width: 90%;
