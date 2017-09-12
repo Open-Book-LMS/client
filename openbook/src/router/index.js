@@ -6,6 +6,7 @@ import courseTool from '../components/courseTool';
 import gradebook from '../pages/gradebook';
 import assignmentGradebook from '../components/assignmentGradebook';
 import rosterGradebook from '../components/rosterGradebook';
+import newCourseTool from '../components/newCourseTool';
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
           name: 'courseTool',
           component: courseTool,
         },
+        {
+          path: 'content/new',
+          name: 'newCourseTool',
+          component: newCourseTool,
+        },
       ],
     },
     {
@@ -45,7 +51,7 @@ export default new Router({
         },
         {
           path: 'roster',
-          name: 'roster',
+          name: 'rosterGradebook',
           component: rosterGradebook,
         },
       ],

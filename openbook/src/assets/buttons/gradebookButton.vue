@@ -1,6 +1,6 @@
 <template>
   <div id='gradebookButton'>
-    <router-link to='gradebook' class="gradebook-link">
+    <router-link to='/gradebook' class="gradebook-link" exact>
         <div class="gradebook-button">
           <span class="gradebook-text">Gradebook</span>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div id='gradebookNav'>
-    <router-link class="gradebook-view-link" to="assignmentView">Assignment View</router-link>
-    <router-link class="gradebook-view-link" to="rosterView">Roster View</router-link>
+    <router-link class="gradebook-view-link" v-bind:class="{'active-link' : assignView}" :to="{ name: 'assignmentGradebook'}" exact>Assignment View</router-link>
+    <router-link class="gradebook-view-link" v-bind:class="{'active-link' : rosterView}" :to="{ name: 'rosterGradebook' }" exact>Roster View</router-link>
   </div>
 </template>
 <script>
@@ -9,11 +9,10 @@ export default {
   name: 'gradebookNav',
   data() {
     return {
-      rosterView: this.$route.name,
-      assignView: this.$route.name,
+      rosterView: this.$route.path === '/gradebook/roster',
+      assignView: this.$route.path === '/gradebook/assignment',
     };
   },
-
 };
 </script>
 <style lang="scss" scoped>
