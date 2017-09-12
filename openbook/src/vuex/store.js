@@ -8,29 +8,45 @@ vue.use(vuex);
 
 const state = {
   user: {},
-  courses: [],
+  courseNav: [],
+  currentItem: {},
 };
 
 const mutations = {
   TOGGLE(state, item) {
     state[item] = !state[item];
   },
-  courses (state, data) {
-    state.courses = data;
+  courseNav (state, data) {
+    state.courseNav = data;
+  },
+  currentItem (state, data) {
+    state.currentItem = data;
   }
 };
 
 const actions = {
-  getCourseItems({ commit }) {
-    Axios.get('http://localhost:3000/course/1/navigation')
+  getCourseItems({ commit }, courseId) {
+    Axios.get('http://localhost:3000/course/' + courseId.courseId + '/navigation')
      .then((response) => {
-       commit('courses', response.data);
+       commit('courseNav', response.data);
      })
      .catch((err) => {
        console.log(err);
      });
-  }
-}
+  },
+  getCurrentCourseItem({ commit }, itemId) {
+    console.log(itemId)
+    Axios.get(`http://localhost:3000/course/assignment/${itemId}`)
+    .then((response) => {
+      console.log(response);
+      commit('currentItem', response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+};
+
 
 export default new vuex.Store({
   state,

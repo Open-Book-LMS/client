@@ -1,6 +1,6 @@
 <template>
   <div id='courseContent'>
-
+    <router-view></router-view>
   </div>
 </template>
 <script>

@@ -20,12 +20,17 @@ export default {
       courseId: this.$route.params.courseId,
     };
   },
+  watch: {
+    courseId: (newId) => {
+      this.$store.dispatch('getCourseItems', Number(newId));
+    },
+  },
   mounted() {
     // Axios.get(`http://localhost:3000/course/${this.courseId}/navigation`)
     // .then((response) => {
     //   this.courseNavigation = response.data;
     // });
-    this.$store.dispatch('getCourseItems');
+    this.$store.dispatch('getCourseItems', { courseId: this.courseId });
   },
 };
 </script>

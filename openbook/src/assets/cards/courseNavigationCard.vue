@@ -1,7 +1,7 @@
 <template>
   <div id='courseNavigationCard' class="navigation-background">
     <newItemButton></newItemButton>
-    <div v-for="item in this.$store.state.courses">
+    <div v-for="item in this.$store.state.courseNav">
       <courseNavigationListItem :itemData="item"></courseNavigationListItem>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line
-    console.log(this.$store.state.courses)
+    console.log(this.$store.state.courseNav)
   },
 };
 </script>

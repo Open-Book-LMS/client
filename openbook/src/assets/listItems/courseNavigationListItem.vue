@@ -1,7 +1,7 @@
 <template>
   <div id='courseNavigationListItem'>
     <div class="item-title-wrapper">
-      <span class="item-title">{{itemData.name}}</span><br />
+      <router-link :to="{ name: 'courseTool', params: { assignId: itemData.id}}"><span class="item-title">{{itemData.name}}</span></router-link><br />
       <span class="item-due-date">{{itemData.end_date}}</span>
       <div class="edit-item">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
