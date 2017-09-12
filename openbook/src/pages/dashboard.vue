@@ -1,6 +1,5 @@
 <template>
   <div id='Dashboard'>
-    <h1>Hello</h1>
     <courseListCard :courseList="courseListData"></courseListCard>
   </div>
 </template>
@@ -34,4 +33,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  #Dashboard {
+    display: grid;
+    grid-template-columns: 5% 60% 20px auto 5%;
+    margin-top: 20px;
+  }
 </style>

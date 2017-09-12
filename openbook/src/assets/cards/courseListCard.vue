@@ -21,8 +21,7 @@ $white: #e9e9e9;
 $black-50: rgba(0, 0, 0, 0.5);
 
 .course-list-container {
-	width: 590px;
-	height: 338px;
+	grid-column: 2 / span 1;
 	background-color: $white;
 	box-shadow: inset 0 1px 3px 0 $black-50;
 }

@@ -2,17 +2,20 @@
   <div id='topbar'>
     <div class="topbar-content-wrapper">
       <profileCard></profileCard>
+      <gradebookButton></gradebookButton>
     </div>
     <div class="line"></div>
   </div>
 </template>
 <script>
 import profileCard from '../assets/cards/profileCard';
+import gradebookButton from '../assets/buttons/gradebookButton';
 
 export default {
   name: 'topbar',
   components: {
     profileCard,
+    gradebookButton,
   },
 };
 </script>
@@ -20,8 +23,8 @@ export default {
   $black-50: rgba(0, 0, 0, 0.5);
 
   .topbar-content-wrapper {
-    display:grid;
-    grid-template-columns: 5% 25% 20px auto 5%;
+    display: grid;
+    grid-template-columns: 5% 25% 20px auto 10% 5%;
   }
   .line {
   	width: 90%;
