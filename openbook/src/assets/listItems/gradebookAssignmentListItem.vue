@@ -9,11 +9,11 @@
       <div class="assignment-details-wrapper">
         <h2>Student Grades</h2>
         <div v-for="student in $store.state.students">
-          <gradeAssignStuListItem :studentData="student" :assignId="assignmentData.id"></gradeAssignStuListItem>
+          <gradeAssignStuListItem :studentData="student" :assignId="assignmentData._id"></gradeAssignStuListItem>
         </div>
       </div>
       <div class="rubric-wrapper">
-        <gradingRubricInst :assignId="assignmentData.id"></gradingRubricInst>
+        <gradingRubricInst :assignId="assignmentData._id"></gradingRubricInst>
       </div>
     </div>
   </div>

@@ -21,8 +21,6 @@ export default {
     // this.$store.dispatch('getCourseList');
     Axios.get('http://localhost:3000/dashboard/1/courses')
      .then((response) => {
-       // eslint-disable-next-line
-       console.log(response.data);
        this.courseListData = response.data;
      })
      .catch((err) => {

@@ -1,18 +1,19 @@
 <template>
   <div id='courseTool'>
-    <h2 class="assignment-title">{{this.$store.state.currentItem.name}}</h2>
-    <p>
-      {{this.$store.state.currentItem.description}}
-    </p>
-    <hr />
-    <p>
-      {{this.$store.state.currentItem.content}}
-    </p>
+    <articleItem v-if="assignmentType === 'ART'"></articleItem>
+    <canvasBroadcast v-if="assignmentType === 'CBC'"></canvasBroadcast>
   </div>
 </template>
 <script>
+import articleItem from './articleItem';
+import canvasBroadcast from './canvasBroadcast';
+
 export default {
   name: 'courseTool',
+  components: {
+    articleItem,
+    canvasBroadcast,
+  },
   data() {
     return {
       assignmentId: this.$route.params.assignId,
@@ -22,12 +23,25 @@ export default {
     // eslint-disable-next-line
     $route: function(newRoute) {
       // eslint-disable-next-line
-      console.log(this);
-      this.$store.dispatch('getCurrentCourseItem', Number(newRoute.params.assignId));
+      this.$store.dispatch('getCurrentCourseItem', newRoute.params.assignId)
+      // .then(() => {
+      //   // eslint-disable-next-line
+      //   console.log('currentItem', this.$store.state.currentItem);
+      //   this.assignmentType = this.$store.state.currentItem.tool_type;
+      // });
+    },
+  },
+  computed: {
+    // eslint-disable-next-line
+    assignmentType: function() {
+      return this.$store.state.currentItem.tool_type;
     },
   },
   mounted() {
-    this.$store.dispatch('getCurrentCourseItem', Number(this.assignmentId));
+    this.$store.dispatch('getCurrentCourseItem', this.assignmentId);
+    // .then(() => {
+    //   this.assignmentType = this.$store.getters.toolType;
+    // });
   },
 };
 </script>

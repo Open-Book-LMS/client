@@ -56,9 +56,8 @@ const actions = {
      });
   },
   getCurrentCourseItem({ commit }, itemId) {
-    Axios.get(`http://localhost:3000/course/${state.currentCourse}/assignment/${itemId}`)
+    Axios.get(`http://localhost:3000/assignment/${itemId}`)
     .then((response) => {
-      console.log(response);
       commit('currentItem', response.data);
     })
     .catch((err) => {
@@ -96,8 +95,6 @@ const actions = {
   createStudentSubmissions({ commit }) {
       const submissionObj = {};
       state.students.forEach((student) => {
-        console.log('student', student);
-        console.log(state.submissions);
         submissionObj[student.id] = state.submissions.filter((submission) => {
           return submission.student_id == student.id;
         })
