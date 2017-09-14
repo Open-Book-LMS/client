@@ -1,22 +1,27 @@
 <template>
   <div id='newCourseTool'>
-    <form>
-      <label for="name">Name:</label>
+    <form class="new-item-form">
+      <label class="form-label" for="name">Name</label>
       <input type="text" name="name" placeholder="Course Item Name" v-model="newItem.name"/>
-      <label for="description">Description:</label>
+      <label for="description">Description</label>
       <textarea name="description" placeholder="Item Summary..." v-model="newItem.description"></textarea>
-      <label for="type">Type:</label>
-      <select name="type" v-model="newItem.type">
-        <option value="article">Article</option>
-        <option value="drawing-broadcast">Drawing Broadcast</option>
+      <label for="type">Type</label>
+      <select name="type" v-model="newItem.tool_name">
+        <option value="Article">Article</option>
+        <option value="Drawing Broadcast">Drawing Broadcast</option>
       </select>
       <hr />
-      <label for="article-text">Article Text:</label>
-      <textarea name="article-text" rows="8" cols="80" placeholder="Article text..." v-model="data.article_text"></textarea>
+      <div class="tool-form">
+        <label for="article-text">Article Text</label>
+        <textarea name="article-text" rows="8" cols="80" placeholder="Article text..." v-model="newItem.data.article_text"></textarea>
+      </div>
+      <button @click.prevent="sendItem">Submit</button>
     </form>
   </div>
 </template>
 <script>
+import Axios from 'axios';
+
 export default {
   name: 'newCourseTool',
   data() {
@@ -24,7 +29,12 @@ export default {
       newItem: {
         name: '',
         description: '',
-        type: '',
+        start_date: '20171015',
+        end_date: '20171015',
+        tool_name: '',
+        grading_rubric: [],
+        gradebook: false,
+        course_id: this.$store.state.currentCourse,
         data: {
           article_text: '',
         },
@@ -32,7 +42,26 @@ export default {
       },
     };
   },
+  methods: {
+    sendItem() {
+      Axios.post(`http://localhost:3000/course/${this.newItem.course_id}/assignment`, this.newItem)
+      .then((response) => {
+        this.$store.dispatch('getCourseItems', { courseId: this.newItem.course_id });
+        this.$route.push(`/content/${response.id}`);
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
+  .new-item-form {
+    display: flex;
+    flex-flow: column;
+    width: 90%;
+    margin:auto;
+    margin-top: 20px;
+  }
+  .form-label {
+   margin: auto;
+ }
 </style>

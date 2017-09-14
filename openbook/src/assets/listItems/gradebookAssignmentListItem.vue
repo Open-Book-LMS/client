@@ -5,21 +5,29 @@
       <span @click="assignmentOpen = true" v-if="!assignmentOpen"><i class="course-open-icon fa fa-2x fa-caret-left" aria-hidden="true"></i></span>
       <span @click="assignmentOpen = false" v-if="assignmentOpen"><i class="course-open-icon fa fa-2x fa-caret-down" aria-hidden="true"></i></span>
     </div>
-    <div class="assignment-details-wrapper">
-      <div v-for="student in $store.state.students">
-        <gradeAssignStuListItem :studentData="student"></gradeAssignStuListItem>
+    <div class="assignmentCard" v-if="assignmentOpen">
+      <div class="assignment-details-wrapper">
+        <h2>Student Grades</h2>
+        <div v-for="student in $store.state.students">
+          <gradeAssignStuListItem :studentData="student" :assignId="assignmentData.id"></gradeAssignStuListItem>
+        </div>
+      </div>
+      <div class="rubric-wrapper">
+        <gradingRubricInst :assignId="assignmentData.id"></gradingRubricInst>
       </div>
     </div>
   </div>
 </template>
 <script>
 import gradeAssignStuListItem from './gradeAssignStuListItem';
+import gradingRubricInst from '../cards/gradingRubricInst';
 
 export default {
-  name: 'gradebookAssignmentListItem',
+  name: 'gradebookAssignmentListItemInst',
   props: ['assignmentData'],
   components: {
     gradeAssignStuListItem,
+    gradingRubricInst,
   },
   data() {
     return {
@@ -31,12 +39,20 @@ export default {
 <style lang="scss" scoped>
   $charcoal-grey: #4a4a4a;
 
+  .assignmentCard {
+    display: grid;
+    grid-template-columns: auto 20px 30%;
+  }
+  .rubric-wrapper {
+    grid-column: 3 / span 1;
+  }
   .gradebook-assignment-wrapper {
     border-bottom: .5px solid black;
     padding: 10px;
     text-align: left;
     display: flex;
     justify-content: space-between;
+    grid-column: 1 / span 1;
   }
   .assignment-title {
     margin-left: 10px;
@@ -48,5 +64,9 @@ export default {
   .course-open-icon {
     color: $charcoal-grey;
     text-align: right;
+  }
+  .assignment-details-wrapper {
+    text-align: left;
+    margin-left: 20px;
   }
 </style>

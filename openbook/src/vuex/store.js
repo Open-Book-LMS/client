@@ -41,7 +41,7 @@ const mutations = {
   },
   studentSubmissions (state, data) {
     state.studentSubmissions = data;
-  }
+  },
 };
 
 const actions = {
