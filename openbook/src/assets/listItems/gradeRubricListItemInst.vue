@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  #gradeRubricListItem {
+  #gradeRubricListItemInst {
     text-align: left;
   }
 </style>

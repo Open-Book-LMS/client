@@ -17,10 +17,15 @@ export default {
   },
   computed: {
     assignment() {
-      return this.$store.state.gradebook.filter(assignment => assignment.id === this.assignId);
+      return this.$store.state.gradebook.filter(assignment =>
+        //eslint-disable-next-line
+        assignment._id === this.assignId);
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+  #gradingRubricInst {
+    margin-right: 20px;
+  }
 </style>

@@ -17,7 +17,7 @@ export default {
   $black-50: rgba(0, 0, 0, 0.5);
 
   #gradebookButton {
-        grid-column: 5 / span 1;
+    grid-column: 7 / span 1;
   }
   .gradebook-link {
     text-decoration: none;

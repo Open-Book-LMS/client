@@ -4,7 +4,7 @@
         <img class="profile-image" :src="selectImage" alt="OpenBook profile image"/>
       </div>
       <span class="title">
-        Name
+        {{selectTitle}}
       </span>
     </div>
   </div>
@@ -15,20 +15,17 @@ export default {
   name: 'profileCard',
   computed: {
     selectImage() {
-      if (this.$route.name === 'Dashboard') {
+      if (this.$route.name === 'Dashboard' || this.$route.name === 'landingPage') {
         return '../../../static/logo.png';
       }
       return '';
     },
-  //   selectTitle() {
-  //     if() {
-  //
-  //     } else if() {
-  //
-  //     } else {
-  //
-  //     }
-  //   },
+    selectTitle() {
+      if (this.$route.name === 'Dashboard' || this.$route.name === 'landingPage') {
+        return 'Open Book';
+      }
+      return 'Placeholder Name';
+    },
   },
 };
 </script>

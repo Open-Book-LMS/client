@@ -42,6 +42,9 @@ const mutations = {
   studentSubmissions (state, data) {
     state.studentSubmissions = data;
   },
+  userType (state, data) {
+    state.currentUser = data;
+  }
 };
 
 const actions = {
@@ -101,6 +104,9 @@ const actions = {
       })
       commit('studentSubmissions', submissionObj);
     },
+  setUserType({ commit }, user) {
+    commit('userType', user);
+  }
   };
 
 export default new vuex.Store({

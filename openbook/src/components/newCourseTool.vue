@@ -6,9 +6,9 @@
       <label for="description">Description</label>
       <textarea name="description" placeholder="Item Summary..." v-model="newItem.description"></textarea>
       <label for="type">Type</label>
-      <select name="type" v-model="newItem.tool_name">
-        <option value="Article">Article</option>
-        <option value="Drawing Broadcast">Drawing Broadcast</option>
+      <select name="type" v-model="newItem.tool_type">
+        <option value="ART">Article</option>
+        <option value="CBC">Drawing Broadcast</option>
       </select>
       <hr />
       <div class="tool-form">
@@ -31,7 +31,7 @@ export default {
         description: '',
         start_date: '20171015',
         end_date: '20171015',
-        tool_name: '',
+        tool_type: '',
         grading_rubric: [],
         gradebook: false,
         course_id: this.$store.state.currentCourse,
@@ -47,7 +47,8 @@ export default {
       Axios.post(`http://localhost:3000/course/${this.newItem.course_id}/assignment`, this.newItem)
       .then((response) => {
         this.$store.dispatch('getCourseItems', { courseId: this.newItem.course_id });
-        this.$route.push(`/content/${response.id}`);
+        //eslint-disable-next-line
+        this.$router.push(`${response.data._id}`);
       });
     },
   },

@@ -7,18 +7,19 @@ import gradebook from '../pages/gradebook';
 import assignmentGradebook from '../components/assignmentGradebook';
 import rosterGradebook from '../components/rosterGradebook';
 import newCourseTool from '../components/newCourseTool';
+import landingPage from '../pages/landingPage';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'SplashPage',
-    //   component: SplashPage,
-    // },
     {
       path: '/',
+      name: 'landingPage',
+      component: landingPage,
+    },
+    {
+      path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
     },

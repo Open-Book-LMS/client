@@ -2,7 +2,10 @@
   <div id='topbar'>
     <div class="topbar-content-wrapper">
       <profileCard></profileCard>
-      <gradebookButton></gradebookButton>
+      <landButton v-if="landButton"></landButton>
+      <dashButton v-if="!dashButton"></dashButton>
+      <gradebookButton v-if="gradebookButton"></gradebookButton>
+      <toCourseButton v-if="courseButton"></toCourseButton>
     </div>
     <div class="line"></div>
   </div>
@@ -10,12 +13,47 @@
 <script>
 import profileCard from '../assets/cards/profileCard';
 import gradebookButton from '../assets/buttons/gradebookButton';
+import toCourseButton from '../assets/buttons/toCourseButton';
+import dashButton from '../assets/buttons/dashButton';
+import landButton from '../assets/buttons/landButton';
 
 export default {
   name: 'topbar',
   components: {
     profileCard,
     gradebookButton,
+    toCourseButton,
+    dashButton,
+    landButton,
+  },
+  computed: {
+    //eslint-disable-next-line
+    gradebookButton: function() {
+      const course = this.route === 'coursePage';
+      const courseTool = this.route === 'courseTool';
+      return course || courseTool;
+    },
+    //eslint-disable-next-line
+    courseButton: function() {
+      const gradebookPage = this.route === 'gradebook';
+      const assignmentView = this.route === 'assignmentGradebook';
+      return gradebookPage || assignmentView;
+    },
+    //eslint-disable-next-line
+    dashButton: function() {
+      const dashboard = this.route === 'Dashboard';
+      const landingPage = this.route === 'landingPage';
+      return dashboard || landingPage;
+    },
+    //eslint-disable-next-line
+    landButton: function() {
+      const dashboard = this.route === 'Dashboard';
+      return dashboard;
+    },
+    //eslint-disable-next-line
+    route: function () {
+      return this.$route.name;
+    },
   },
 };
 </script>
@@ -24,7 +62,7 @@ export default {
 
   .topbar-content-wrapper {
     display: grid;
-    grid-template-columns: 5% 25% 20px auto 15% 5%;
+    grid-template-columns: 5% 25% 20px auto 15% 5px 15% 5%;
   }
   .line {
   	width: 90%;

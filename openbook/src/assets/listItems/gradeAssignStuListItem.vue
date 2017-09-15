@@ -1,7 +1,10 @@
 <template>
   <div id='gradeAssignStuListItem'>
-    <p :class="{'has-not-submitted' : hasNotSubmitted}">
-      <i class="fa fa-user" aria-hidden="true"></i> {{studentData.first_name}} {{studentData.last_name}} <span v-if="hasGrade">{{relevantSubmission}}</span><span v-if="!hasGrade">N/A</span>
+    <p :class="{'has-not-submitted' : hasNotSubmitted}" class="left-margin">
+      <!-- <i class="fa fa-user pull-right" aria-hidden="true"></i> -->
+      {{studentData.first_name}} {{studentData.last_name}}
+      <span class="pull-right left-margin" v-if="hasGrade">{{relevantSubmission}}</span>
+      <span class="pull-right left-margin"  v-if="!hasGrade">N/A</span>
     </p>
   </div>
 </template>
@@ -17,15 +20,11 @@ export default {
     };
   },
   mounted() {
-    this.findHasGrade();
     this.findRelevantSubmission();
   },
   methods: {
     checkAssignId(submission) {
       return submission.assignment_id === this.assignId;
-    },
-    findHasGrade() {
-      this.hasGrade = this.submissions.grade;
     },
     findRelevantSubmission() {
       this.relevantSubmission = this.submissions
@@ -38,16 +37,24 @@ export default {
         this.checkAssignId(submission),
       );
     },
+    //eslint-disable-next-line
+    findHasGrade: function() {
+      return this.submissions.grade;
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
   #gradeAssignStuListItem {
-    text-align: left;
     display: flex;
-    justify-content: space-between;
   }
   .has-not-submitted {
     color: red;
+  }
+  .left-margin {
+    margin-left: 20px;
+  }
+  .pull-right {
+    text-align: right;
   }
 </style>
