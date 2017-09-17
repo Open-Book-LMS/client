@@ -20,13 +20,21 @@ export default {
       mainText: 'Hello',
     };
   },
+  watch: {
+    //eslint-disable-next-line
+    $route: function(newRoute){
+      if (newRoute.params.name === 'landingPage') {
+        this.$store.dispatch('clearState');
+      }
+    },
+  },
   methods: {
     sendInstructor() {
-      this.$store.dispatch('setUserType', { type: 'INST' });
+      this.$store.dispatch('getUserDatabyID', 1);
       this.$router.push('/dashboard');
     },
     sendStudent() {
-      this.$store.dispatch('setUserType', { type: 'STU' });
+      this.$store.dispatch('getUserDatabyID', 3);
       this.$router.push('/dashboard');
     },
   },

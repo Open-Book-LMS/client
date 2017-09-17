@@ -21,10 +21,11 @@ export default {
       return '';
     },
     selectTitle() {
-      if (this.$route.name === 'Dashboard' || this.$route.name === 'landingPage') {
+      const user = this.$store.state.currentUser;
+      if (this.$route.name === 'landingPage') {
         return 'Open Book';
       }
-      return 'Placeholder Name';
+      return `${user.first_name} ${user.last_name}`;
     },
   },
 };

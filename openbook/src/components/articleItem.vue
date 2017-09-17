@@ -6,7 +6,7 @@
     </p>
     <hr />
     <p>
-      {{assignData.content}}
+      {{assignData.data.article_text}}
     </p>
   </div>
 </template>

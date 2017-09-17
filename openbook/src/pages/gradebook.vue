@@ -5,22 +5,27 @@
     </h3>
     <!-- <gradebookNav></gradebookNav>
     <router-view></router-view> -->
-    <assignmentGradebook></assignmentGradebook>
+    <assignmentGradebook v-if="!isStudent"></assignmentGradebook>
+    <studentGradebook v-if="isStudent"></studentGradebook>
   </div>
 </template>
 <script>
 import gradebookNav from '../components/gradebookNav';
 import assignmentGradebook from '../components/assignmentGradebook';
+import studentGradebook from '../components/studentGradebook';
 
 export default {
   name: 'gradebook',
   components: {
     gradebookNav,
     assignmentGradebook,
+    studentGradebook,
   },
-  mounted() {
-    this.$store.dispatch('getGradableAssignments');
-    this.$store.dispatch('getSubmissions');
+  computed: {
+    //eslint-disable-next-line
+    isStudent: function() {
+      return this.$store.state.currentUser.type === 'student';
+    },
   },
 };
 </script>

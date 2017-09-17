@@ -1,6 +1,6 @@
 <template>
   <div id='assignmentGradebook'>
-    <h2>Assignment</h2>
+    <!-- <h2>Assignment</h2> -->
     <div class="gradebook-list-wrapper">
       <div v-for="assignment in $store.state.gradebook">
         <gradebookAssignmentListItem :assignmentData="assignment"></gradebookAssignmentListItem>
@@ -17,6 +17,10 @@ export default {
   components: {
     gradebookNav,
     gradebookAssignmentListItem,
+  },
+  mounted() {
+    this.$store.dispatch('getGradableAssignments');
+    this.$store.dispatch('getSubmissions');
   },
 };
 </script>

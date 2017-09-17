@@ -1,6 +1,6 @@
 <template>
   <div id='courseListCard' class="course-list-container">
-    <div v-for="course in courseList">
+    <div v-for="course in $store.state.courseList">
       <courseListItem :course="course"></courseListItem>
     </div>
   </div>
@@ -10,7 +10,6 @@ import courseListItem from '../listItems/courseListItem';
 
 export default {
   name: 'courseListCard',
-  props: ['courseList'],
   components: {
     courseListItem,
   },

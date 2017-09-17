@@ -2,7 +2,7 @@
   <div id='gradebookButton'>
     <router-link to='/gradebook' class="gradebook-link" exact>
         <div class="gradebook-button">
-          <span class="gradebook-text">Gradebook</span>
+          <span class="gradebook-text">{{isStudent ? studentGrade : 'Gradebook'}}</span>
         </div>
       </router-link>
   </div>
@@ -10,6 +10,12 @@
 <script>
 export default {
   name: 'gradebookButton',
+  data() {
+    return {
+      isStudent: this.$store.state.currentUser.type === 'student',
+      studentGrade: this.$store.state.currentUser.grade,
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>

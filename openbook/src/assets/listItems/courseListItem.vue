@@ -6,7 +6,7 @@
       <span @click="courseOpen = false" v-if="courseOpen"><i class="course-open-icon fa fa-2x fa-caret-down" aria-hidden="true"></i></span>
     </div>
     <div v-if="courseOpen" class="course-details">
-      <span class="course-dates">{{course.start_date}} - {{course.end_date}}</span>
+      <span class="course-dates">{{course.start_date | moment('MMM Do YYYY')}} - {{course.end_date | moment('MMM Do YYYY')}}</span>
       <ul class="notification-list">
         <li class="notification-item">
           Notification
@@ -29,6 +29,7 @@ export default {
 <style lang="scss" scoped>
   $charcoal-grey: #4a4a4a;
   $white: #e9e9e9;
+  $old-pink: #c4688d;
 
   .course-title-wrapper {
     display: flex;
@@ -39,7 +40,7 @@ export default {
     text-decoration: none;
   }
   .course-link :hover {
-
+    color: $old-pink;
   }
   .course-title {
   	font-family: Didot;

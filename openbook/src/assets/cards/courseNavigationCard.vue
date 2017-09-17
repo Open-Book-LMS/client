@@ -1,6 +1,7 @@
 <template>
   <div id='courseNavigationCard' class="navigation-background">
-    <newItemButton></newItemButton>
+    <newItemButton v-if="!isStudent"></newItemButton>
+    <courseNavLegend v-if="isStudent"></courseNavLegend>
     <div v-for="item in this.$store.state.courseNav">
       <courseNavigationListItem :itemData="item"></courseNavigationListItem>
     </div>
@@ -9,12 +10,19 @@
 <script>
 import courseNavigationListItem from '../listItems/courseNavigationListItem';
 import newItemButton from '../buttons/newItemButton';
+import courseNavLegend from './courseNavLegend';
 
 export default {
   name: 'courseNavigationCard',
   components: {
     courseNavigationListItem,
     newItemButton,
+    courseNavLegend,
+  },
+  data() {
+    return {
+      isStudent: this.$store.state.currentUser.type === 'student',
+    };
   },
   mounted() {
     // eslint-disable-next-line

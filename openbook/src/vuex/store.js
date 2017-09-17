@@ -8,6 +8,7 @@ vue.use(vuex);
 
 const state = {
   currentUser: {},
+  courseList: [],
   currentCourse: 0,
   courseNav: [],
   currentItem: {},
@@ -42,8 +43,24 @@ const mutations = {
   studentSubmissions (state, data) {
     state.studentSubmissions = data;
   },
-  userType (state, data) {
+  currentUser (state, data) {
     state.currentUser = data;
+  },
+  courseList (state, data) {
+    state.courseList = data;
+  },
+  clearState (state) {
+    state = {
+      currentUser: {},
+      courseList: [],
+      currentCourse: 0,
+      courseNav: [],
+      currentItem: {},
+      gradebook: [],
+      students: [],
+      submissions: [],
+      studentSubmissions: {}
+    };
   }
 };
 
@@ -104,8 +121,21 @@ const actions = {
       })
       commit('studentSubmissions', submissionObj);
     },
-  setUserType({ commit }, user) {
-    commit('userType', user);
+  getUserDatabyID({ commit }, userId) {
+    Axios.get(`http://localhost:3000/auth/user/${userId}`)
+    .then((response) => {
+      commit('currentUser', response.data);
+      this.dispatch('getCourseList');
+    })
+  },
+  getCourseList({ commit }) {
+    Axios.get(`http://localhost:3000/dashboard/${state.currentUser.id}/courses`)
+     .then((response) => {
+       commit('courseList', response.data);
+     })
+  },
+  clearState({ commit }) {
+    commit('clearState');
   }
   };
 
