@@ -11,7 +11,7 @@
       class="broadcastCanvas"
       :width="assignData.data.canvas_width"
       :height="assignData.data.canvas_height"
-      :style="{'background-color': style.backgroundColor}"
+      :style="{'background-color': backgroundColor}"
       >
     </canvas>
     <canvas
@@ -63,6 +63,7 @@
 </template>
 <script>
 import { Compact } from 'vue-color';
+import io from 'socket.io-client';
 
 export default {
   name: 'canvasBroadcast',
@@ -72,20 +73,20 @@ export default {
   data() {
     /*eslint-disable*/
     return {
+      assignmentID: this.$store.state.currentItem._id,
       started: false,
       paint: false,
       click: [],
-      clickX: [],
-      clickY: [],
-      clickDrag: [],
-      colorPicker: '#808900',
+      colorPicker: 'black',
+      backgroundColor: this.$store.state.currentItem.data.canvas_background,
+      curSize: 5,
+      curTool: 'marker',
       canvas_save: {
         drawing: '',
         width: 0,
         height: 0,
         backgroundColor: '',
       },
-      backgroundColor: this.$store.state.currentItem.data.canvas_background,
       brushColors: [
         '#4D4D4D', '#999999', '#FFFFFF', '#F44E3B', '#FE9200', '#FCDC00',
         '#DBDF00', '#A4DD00', '#68CCCA', '#73D8FF', '#AEA1FF', '#FDA1FF',
@@ -102,15 +103,27 @@ export default {
         '#000000', '#666666', '#B3B3B3', '#9F0500', '#C45100', '#FB9E00',
         '#808900', '#194D33', '#0C797D', '#0062B1', '#653294', '#AB149E'
       ],
-      clickColor: [],
-      curSize: 5,
-      clickSize: [],
-      curTool: 'marker',
     };
+  },
+  mounted() {
+    console.log('mounted');
   },
   computed: {
     // eslint-disable-next-line
     assignData: function () {
+      this.started = false;
+      this.paint = false;
+      this.click = [];
+      this.colorPicker = 'black';
+      this.backgroundColor = this.$store.state.currentItem.data.canvas_background;
+      this.curSize = 5;
+      this.curTool = 'marker';
+      this.canvas_save = {
+        drawing: '',
+        width: 0,
+        height: 0,
+        backgroundColor: '',
+      }
       return this.$store.state.currentItem;
     },
     // eslint-disable-next-line
@@ -129,6 +142,9 @@ export default {
         return this.backgroundColor;
       }
     },
+  },
+  beforeRouteUpdate() {
+    console.log(this.$route.params.assignId);
   },
   methods: {
     canvasStart(event) {
@@ -154,11 +170,6 @@ export default {
         size: this.curSize,
         type: this.curTool,
       })
-      this.clickX.push(x);
-      this.clickY.push(y);
-      this.clickDrag.push(dragging);
-      this.clickColor.push(this.brushColor);
-      this.clickSize.push(this.curSize);
     },
     redraw() {
       this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
@@ -192,6 +203,9 @@ export default {
     },
     startBroadcast() {
       this.started = true;
+      let socket = io.connect('http://localhost:3000');
+      console.log(socket);
+      // socket.emit('hello', {message: 'hi'});
     },
     endBroadcast() {
       this.started = false;
@@ -205,6 +219,11 @@ export default {
       };
     },
   },
+  // sockets:{
+  //   connect: function() {
+  //     console.log('socket connected');
+  //   },
+  // },
   watch: {
     $route: function (newRoute) {
       this.click.x = [];
@@ -228,20 +247,23 @@ export default {
     border: 1px solid $charcoal-grey;
   }
   .tool-grid {
-    display: grid;
-    grid-template-columns: 5% 50% auto 20% 5%;
-    justify-content: space-between;
+    display: flex;
+    // grid-template-columns: 5% 50% 20% 20% 5%;
+    justify-content: space-around;
   }
   .color-picker {
-    grid-column: 2 / span 1;
+    // grid-column: 2 / span 1;
     margin-right: 10px;
   }
   .broadcast-buttons {
-    grid-column: 4 / span 1;
+    // grid-column: 4 / span 1;
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
   }
   .brush-picker {
-    grid-column: 3 / span 1;
+    // grid-column: 3 / span 1;
+    // justify-self: center;
   }
   .left-margin {
     margin-left: 20px;

@@ -35,6 +35,9 @@ export default {
   	background-color: $old-pink;
   	box-shadow: 0 2px 4px 0 $black-50;
     overflow: none;
+    display:flex;
+    align-items: center;
+    justify-content: center;
   }
   .gradebook-text {
   	font-family: ArticulatCFv2;
@@ -43,6 +46,7 @@ export default {
   	text-align: center;
   	color: #ffffff;
     vertical-align: middle;
+    padding: 10px;
   }
 
 </style>

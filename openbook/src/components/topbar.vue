@@ -2,10 +2,10 @@
   <div id='topbar'>
     <div class="topbar-content-wrapper">
       <profileCard></profileCard>
-      <landButton v-if="landButton"></landButton>
-      <dashButton v-if="!dashButton"></dashButton>
-      <gradebookButton v-if="gradebookButton"></gradebookButton>
-      <toCourseButton v-if="courseButton"></toCourseButton>
+      <landButton class="button-flex" v-if="landButton"></landButton>
+      <dashButton class="button-flex" v-if="!dashButton"></dashButton>
+      <gradebookButton class="button-flex" v-if="gradebookButton"></gradebookButton>
+      <toCourseButton class="button-flex" v-if="courseButton"></toCourseButton>
     </div>
     <div class="line"></div>
   </div>
@@ -63,6 +63,9 @@ export default {
   .topbar-content-wrapper {
     display: grid;
     grid-template-columns: 5% 25% 20px auto 15% 5px 15% 5%;
+  }
+  .button-flex {
+    align-self: end;
   }
   .line {
   	width: 90%;

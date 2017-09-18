@@ -26,7 +26,7 @@ export default {
   computed: {
     //eslint-disable-next-line
     submitted: function() {
-      if (this.$store.state.currentUser.submitted) {
+      if (this.$store.state.currentUser.submittions) {
         //eslint-disable-next-line
         return this.$store.state.currentUser.submissions.filter((submisson) => {
           //eslint-disable-next-line

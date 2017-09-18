@@ -1,15 +1,18 @@
 <template>
   <div id='Dashboard'>
+    <!-- <announcementsCard></announcementsCard> -->
     <courseListCard></courseListCard>
   </div>
 </template>
 <script>
 import courseListCard from '../assets/cards/courseListCard';
+import announcementsCard from '../assets/cards/announcementsCard';
 
 export default {
   name: 'Dashboard',
   components: {
     courseListCard,
+    announcementsCard,
   },
 };
 </script>

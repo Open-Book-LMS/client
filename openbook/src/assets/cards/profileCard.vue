@@ -44,18 +44,20 @@ $charcoal-grey: #4a4a4a;
 	box-shadow: inset 0 1px 3px 0 $black-50;
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   grid-template-columns: 10px 90px 10px auto;
   min-width: 400px;
 }
 
 .profile-image {
-	width: auto;
+  margin-left: 20px;
+	width: 90px;
 	height: 90px;
   // float:left;
   background-color: white;
-  clip-path: circle(45px at center);
-  border: solid 1px $charcoal-grey;
-  border-radius: 90px;
+  // clip-path: circle(45px at center);
+  // border: solid 1px $charcoal-grey;
+  border-radius: 90%;
   box-shadow: 0 2px 4px 0 $black-50;
   // margin-top: -10px;
   // clip-path: circle(45px at center);
@@ -78,5 +80,6 @@ $charcoal-grey: #4a4a4a;
 	line-height: 0.72;
 	color: $slate-green;
   vertical-align: middle;
+  padding-left: 20px;
 }
 </style>

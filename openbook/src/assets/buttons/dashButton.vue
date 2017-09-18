@@ -25,6 +25,9 @@ $black-50: rgba(0, 0, 0, 0.5);
   	background-color: $slate-green;
   	box-shadow: 0 2px 4px 0 $black-50;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .dash-link {
     text-decoration: none;
