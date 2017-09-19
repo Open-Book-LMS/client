@@ -2,7 +2,7 @@
   <div id='gradebookButton'>
     <router-link to='/gradebook' class="gradebook-link" exact>
         <div class="gradebook-button">
-          <span class="gradebook-text">{{isStudent ? studentGrade : 'Gradebook'}}</span>
+          <span class="gradebook-text">{{isStudent ? '3.5/5' : 'Gradebook'}}</span>
         </div>
       </router-link>
   </div>

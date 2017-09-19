@@ -17,8 +17,10 @@ export default {
     selectImage() {
       if (this.$route.name === 'Dashboard' || this.$route.name === 'landingPage') {
         return '../../../static/logo.png';
+      } else if (this.$store.state.currentUser.type !== 'student') {
+        return '../../../static/IMG_0505.jpg';
       }
-      return '';
+      return '../../../static/IMG_1348.jpg';
     },
     selectTitle() {
       const user = this.$store.state.currentUser;

@@ -2,17 +2,20 @@
   <div id='courseTool'>
     <articleItem v-if="assignmentType === 'ART'"></articleItem>
     <canvasBroadcast v-if="assignmentType === 'CBC'"></canvasBroadcast>
+    <studentDrawing v-if="assignmentType === 'DRW'"></studentDrawing>
   </div>
 </template>
 <script>
 import articleItem from './articleItem';
 import canvasBroadcast from './canvasBroadcast';
+import studentDrawing from './studentDrawing';
 
 export default {
   name: 'courseTool',
   components: {
     articleItem,
     canvasBroadcast,
+    studentDrawing,
   },
   data() {
     return {

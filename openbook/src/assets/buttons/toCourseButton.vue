@@ -28,6 +28,9 @@ $black-50: rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   background-color: $old-pink;
   box-shadow: 0 2px 4px 0 $black-50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: none;
 }
 .gradebook-text {

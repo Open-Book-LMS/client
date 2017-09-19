@@ -49,6 +49,9 @@ const mutations = {
   courseList (state, data) {
     state.courseList = data;
   },
+  chatItem (state, data) {
+    state.currentItem.data.chat.push(data);
+  },
   clearState (state) {
     state = {
       currentUser: {},
@@ -133,6 +136,9 @@ const actions = {
      .then((response) => {
        commit('courseList', response.data);
      })
+  },
+  addChatItem({ commit }, chat){
+    commit('chatItem', chat);
   },
   clearState({ commit }) {
     commit('clearState');

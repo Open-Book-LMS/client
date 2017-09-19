@@ -5,15 +5,16 @@
       {{assignData.description}}
     </p>
     <hr />
-    <canvas
+    <!-- <h4 v-if="isStudent && preBroadcast">This demonstration will start at 7:00pm on {{startTime | moment('MMM Do YYYY')}}</h4> -->
+    <div
       v-if="isStudent"
-      ref="broadcast"
       class="broadcastCanvas"
-      :width="assignData.data.canvas_width"
-      :height="assignData.data.canvas_height"
-      :style="{'background-color': backgroundColor}"
+      :width="canvasRender.width"
+      :height="canvasRender.height"
+      :style="{'background-color': canvasRender.backgroundColor}"
       >
-    </canvas>
+      <img :src="canvasRender.drawing" />
+    </div>
     <canvas
       v-if="!isStudent"
       ref="broadcast"
@@ -56,30 +57,40 @@
         <button @click="saveCanvas" class="button-style save-button">Save Canvas</button>
       </div>
     </div>
-    <div :style="{'background-color': canvas_save.backgroundColor}" :height="canvas_save.height" :width="canvas_save.width">
-      <img :src="canvas_save.drawing" />
+    <div class="chat-grid">
+      <chatCard :sendButton="sendMessage" :chatData="chat"></chatCard>
+      <participantsCard></participantsCard>
     </div>
   </div>
 </template>
 <script>
 import { Compact } from 'vue-color';
+import Axios from 'axios';
 import io from 'socket.io-client';
+import chatCard from '../assets/cards/chatCard';
+import participantsCard from '../assets/cards/participantsCard';
 
 export default {
   name: 'canvasBroadcast',
   components: {
     'compact-picker': Compact,
+    chatCard,
+    participantsCard,
   },
   data() {
     /*eslint-disable*/
     return {
       assignmentID: this.$store.state.currentItem._id,
+      chat: this.$store.state.currentItem.data.chat,
       started: false,
       paint: false,
       click: [],
+      startTime: '20170921',
       colorPicker: 'black',
+      recievedCanvas: {},
       backgroundColor: this.$store.state.currentItem.data.canvas_background,
       curSize: 5,
+      socket: undefined,
       curTool: 'marker',
       canvas_save: {
         drawing: '',
@@ -106,7 +117,15 @@ export default {
     };
   },
   mounted() {
-    console.log('mounted');
+    if(this.isStudent){
+      this.socket = io.connect('http://localhost:3000');
+      this.socket.on('canvas_broadcast', (data) => {
+        this.canvas_save = data;
+      })
+      this.socket.on('canvas_chat', (data) => {
+        this.chat.push(data);
+      })
+    }
   },
   computed: {
     // eslint-disable-next-line
@@ -126,6 +145,9 @@ export default {
       }
       return this.$store.state.currentItem;
     },
+    canvasRender: function() {
+      return this.canvas_save;
+    },
     // eslint-disable-next-line
     context: function () {
       let contextVar = this.$refs.broadcast.getContext('2d');
@@ -142,9 +164,20 @@ export default {
         return this.backgroundColor;
       }
     },
-  },
-  beforeRouteUpdate() {
-    console.log(this.$route.params.assignId);
+    canvasObject: function() {
+      return {
+        drawing: this.$refs.broadcast.toDataURL("image/png"),
+        backgroundColor: this.backgroundColor,
+        width: this.assignData.data.canvas_width,
+        height: this.assignData.data.canvas_height,
+      };
+    },
+    preBroadcast: function() {
+      if(new Date(this.startTime) > new Date().now){
+        return true;
+      }
+      return false;
+    },
   },
   methods: {
     canvasStart(event) {
@@ -156,6 +189,7 @@ export default {
       if (this.paint) {
         this.addClick(event.pageX - this.$refs.broadcast.offsetLeft, event.pageY - this.$refs.broadcast.offsetTop, true);
         this.redraw();
+        this.socket.emit('canvas_broadcast', this.canvasObject);
       }
     },
     falsePaint() {
@@ -203,34 +237,29 @@ export default {
     },
     startBroadcast() {
       this.started = true;
-      let socket = io.connect('http://localhost:3000');
-      console.log(socket);
-      // socket.emit('hello', {message: 'hi'});
+      this.socket = io.connect('http://localhost:3000');
+      this.socket.emit('canvas_broadcast', this.canvasObject);
+      this.socket.on('canvas_chat', (data) => {
+        this.chat.push(data);
+      })
     },
     endBroadcast() {
       this.started = false;
+      this.socket.disconnect('http://localhost:3000');
     },
     saveCanvas() {
-      this.canvas_save = {
-        drawing: this.$refs.broadcast.toDataURL("image/png"),
-        backgroundColor: this.backgroundColor,
-        width: this.assignData.data.canvas_width,
-        height: this.assignData.data.canvas_height,
-      };
+      Axios.post(`http://localhost:3000/assignment/${this.assignData._id}/canvas_save`, this.canvasObject)
+      .then(response => {
+        console.log(response);
+      })
     },
-  },
-  // sockets:{
-  //   connect: function() {
-  //     console.log('socket connected');
-  //   },
-  // },
-  watch: {
-    $route: function (newRoute) {
-      this.click.x = [];
-      this.click.y = [];
-      this.click.drag = [];
+    sendMessage(message) {
+      let name = this.$store.state.currentUser.first_name + ' ' + this.$store.state.currentUser.last_name;
+      console.log(message);
+      this.socket.emit('canvas_chat', {name:name, message: message});
+      // Axios.put(`http://localhost:3000/`)
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -289,5 +318,9 @@ export default {
   }
   .save-button {
     background-color: $bright-blue;
+  }
+  .chat-grid {
+    display: grid;
+    grid-template-columns: 60% 40%;
   }
 </style>
