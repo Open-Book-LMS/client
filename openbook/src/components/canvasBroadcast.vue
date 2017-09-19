@@ -8,10 +8,8 @@
     <!-- <h4 v-if="isStudent && preBroadcast">This demonstration will start at 7:00pm on {{startTime | moment('MMM Do YYYY')}}</h4> -->
     <div
       v-if="isStudent"
-      class="broadcastCanvas"
-      :width="canvasRender.width"
-      :height="canvasRender.height"
-      :style="{'background-color': canvasRender.backgroundColor}"
+      class="broadcastCanvasStu"
+      :style="{'background-color': canvasRender.backgroundColor, height: canvasRender.height, width: canvasRender.width}"
       >
       <img :src="canvasRender.drawing" />
     </div>
@@ -88,6 +86,7 @@ export default {
       startTime: '20170921',
       colorPicker: 'black',
       recievedCanvas: {},
+      canvasRender: {},
       backgroundColor: this.$store.state.currentItem.data.canvas_background,
       curSize: 5,
       socket: undefined,
@@ -118,13 +117,18 @@ export default {
   },
   mounted() {
     if(this.isStudent){
-      this.socket = io.connect('http://localhost:3000');
+      this.socket = io.connect('https://open-book-lms.herokuapp.com');
       this.socket.on('canvas_broadcast', (data) => {
-        this.canvas_save = data;
+        this.canvasRender = data;
       })
       this.socket.on('canvas_chat', (data) => {
         this.chat.push(data);
       })
+    }
+  },
+  watch: {
+    canvas_save(newData) {
+      this.canvasRender = newData;
     }
   },
   computed: {
@@ -144,9 +148,6 @@ export default {
         backgroundColor: '',
       }
       return this.$store.state.currentItem;
-    },
-    canvasRender: function() {
-      return this.canvas_save;
     },
     // eslint-disable-next-line
     context: function () {
@@ -189,7 +190,12 @@ export default {
       if (this.paint) {
         this.addClick(event.pageX - this.$refs.broadcast.offsetLeft, event.pageY - this.$refs.broadcast.offsetTop, true);
         this.redraw();
-        this.socket.emit('canvas_broadcast', this.canvasObject);
+        this.socket.emit('canvas_broadcast', {
+          drawing: this.$refs.broadcast.toDataURL("image/png"),
+          backgroundColor: this.backgroundColor,
+          width: this.assignData.data.canvas_width,
+          height: this.assignData.data.canvas_height,
+        });
       }
     },
     falsePaint() {
@@ -234,10 +240,16 @@ export default {
     setBackgroundColor(payload) {
       this.backgroundColor = payload.hex;
       this.redraw();
+      this.socket.emit('canvas_broadcast', {
+        drawing: this.$refs.broadcast.toDataURL("image/png"),
+        backgroundColor: this.backgroundColor,
+        width: this.assignData.data.canvas_width,
+        height: this.assignData.data.canvas_height,
+      });
     },
     startBroadcast() {
       this.started = true;
-      this.socket = io.connect('http://localhost:3000');
+      this.socket = io.connect('https://open-book-lms.herokuapp.com');
       this.socket.emit('canvas_broadcast', this.canvasObject);
       this.socket.on('canvas_chat', (data) => {
         this.chat.push(data);
@@ -245,19 +257,17 @@ export default {
     },
     endBroadcast() {
       this.started = false;
-      this.socket.disconnect('http://localhost:3000');
+      this.socket.disconnect('https://open-book-lms.herokuapp.com');
     },
     saveCanvas() {
-      Axios.post(`http://localhost:3000/assignment/${this.assignData._id}/canvas_save`, this.canvasObject)
+      Axios.post(`https://open-book-lms.herokuapp.com/assignment/${this.assignData._id}/canvas_save`, this.canvasObject)
       .then(response => {
-        console.log(response);
       })
     },
     sendMessage(message) {
       let name = this.$store.state.currentUser.first_name + ' ' + this.$store.state.currentUser.last_name;
-      console.log(message);
       this.socket.emit('canvas_chat', {name:name, message: message});
-      // Axios.put(`http://localhost:3000/`)
+      // Axios.put(`https://open-book-lms.herokuapp.com/`)
     }
   },
 };
@@ -274,6 +284,10 @@ export default {
 
   .broadcastCanvas {
     border: 1px solid $charcoal-grey;
+  }
+  .broadcastCanvasStu {
+    border: 1px solid $charcoal-grey;
+    margin: auto;
   }
   .tool-grid {
     display: flex;

@@ -7,9 +7,23 @@
     </div>
     <div v-if="courseOpen" class="course-details">
       <span class="course-dates">{{course.start_date | moment('MMM Do YYYY')}} - {{course.end_date | moment('MMM Do YYYY')}}</span>
-      <ul class="notification-list">
+      <ul class="notification-list" v-if="isStudent">
         <li class="notification-item">
-          Notification
+          Assignment graded: Drawing Assignment 1
+        </li>
+      </ul>
+      <ul class="notification-list" v-if="!isStudent">
+        <li class="notification-item">
+          New submission for Drawing Assignment 2
+        </li>
+        <li class="notification-item">
+          Email from Mildred Wells: For the sketch book check-in this week, will we need to have a certain number of sketches?
+        </li>
+        <li class="notification-item">
+          New submission for Color Discussion
+        </li>
+        <li class="notification-item">
+          New submission for Drawing Assignment 2
         </li>
       </ul>
     </div>
@@ -23,6 +37,12 @@ export default {
     return {
       courseOpen: false,
     };
+  },
+  computed: {
+    //eslint-disable-next-line
+    isStudent: function() {
+      return this.$store.state.currentUser.type === 'student';
+    },
   },
 };
 </script>
@@ -67,7 +87,6 @@ export default {
   }
   .notification-item {
   	font-family: AvenirNext;
-  	font-size: 10px;
   	text-align: left;
   	color: $charcoal-grey;
   }

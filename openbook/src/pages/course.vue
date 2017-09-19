@@ -26,7 +26,7 @@ export default {
     },
   },
   mounted() {
-    // Axios.get(`http://localhost:3000/course/${this.courseId}/navigation`)
+    // Axios.get(`https://open-book-lms.herokuapp.com/course/${this.courseId}/navigation`)
     // .then((response) => {
     //   this.courseNavigation = response.data;
     // });

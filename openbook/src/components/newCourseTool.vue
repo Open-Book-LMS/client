@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     sendItem() {
-      Axios.post(`http://localhost:3000/course/${this.newItem.course_id}/assignment`, this.newItem)
+      Axios.post(`https://open-book-lms.herokuapp.com/course/${this.newItem.course_id}/assignment`, this.newItem)
       .then((response) => {
         this.$store.dispatch('getCourseItems', { courseId: this.newItem.course_id });
         //eslint-disable-next-line

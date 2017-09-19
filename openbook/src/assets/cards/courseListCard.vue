@@ -21,6 +21,8 @@ $black-50: rgba(0, 0, 0, 0.5);
 
 .course-list-container {
 	grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+  margin-top: 10px;
 	background-color: $white;
 	box-shadow: inset 0 1px 3px 0 $black-50;
 }

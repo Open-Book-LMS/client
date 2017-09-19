@@ -69,7 +69,7 @@ const mutations = {
 
 const actions = {
   getCourseItems({ commit }, courseId) {
-    Axios.get('http://localhost:3000/course/' + courseId.courseId + '/navigation')
+    Axios.get('https://open-book-lms.herokuapp.com/course/' + courseId.courseId + '/navigation')
      .then((response) => {
        commit('currentCourse', courseId.courseId);
        commit('courseNav', response.data);
@@ -79,7 +79,7 @@ const actions = {
      });
   },
   getCurrentCourseItem({ commit }, itemId) {
-    Axios.get(`http://localhost:3000/assignment/${itemId}`)
+    Axios.get(`https://open-book-lms.herokuapp.com/assignment/${itemId}`)
     .then((response) => {
       commit('currentItem', response.data);
     })
@@ -88,7 +88,7 @@ const actions = {
     });
   },
   getGradableAssignments({ commit }) {
-    Axios.get(`http://localhost:3000/course/${state.currentCourse}/gradebook`)
+    Axios.get(`https://open-book-lms.herokuapp.com/course/${state.currentCourse}/gradebook`)
     .then((response) => {
       commit('gradebook', response.data);
     })
@@ -97,7 +97,7 @@ const actions = {
     })
   },
   getStudents({ commit }, courseId) {
-    Axios.get(`http://localhost:3000/course/${courseId.courseId}/students`)
+    Axios.get(`https://open-book-lms.herokuapp.com/course/${courseId.courseId}/students`)
     .then((response) => {
       commit('students', response.data)
     })
@@ -106,7 +106,7 @@ const actions = {
     })
   },
   getSubmissions({ commit }) {
-    Axios.get(`http://localhost:3000/course/${state.currentCourse}/submissions`)
+    Axios.get(`https://open-book-lms.herokuapp.com/course/${state.currentCourse}/submissions`)
     .then((response) => {
       commit('submissions', response.data);
       this.dispatch('createStudentSubmissions');
@@ -125,14 +125,14 @@ const actions = {
       commit('studentSubmissions', submissionObj);
     },
   getUserDatabyID({ commit }, userId) {
-    Axios.get(`http://localhost:3000/auth/user/${userId}`)
+    Axios.get(`https://open-book-lms.herokuapp.com/auth/user/${userId}`)
     .then((response) => {
       commit('currentUser', response.data);
       this.dispatch('getCourseList');
     })
   },
   getCourseList({ commit }) {
-    Axios.get(`http://localhost:3000/dashboard/${state.currentUser.id}/courses`)
+    Axios.get(`https://open-book-lms.herokuapp.com/dashboard/${state.currentUser.id}/courses`)
      .then((response) => {
        commit('courseList', response.data);
      })

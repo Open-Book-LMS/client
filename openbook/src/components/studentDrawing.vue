@@ -171,7 +171,7 @@ export default {
       this.colorPicker = payload.hex;
       },
     // saveCanvas() {
-    //   Axios.post(`http://localhost:3000/assignment/${this.assignData._id}/canvas_save`, this.canvasObject)
+    //   Axios.post(`https://open-book-lms.herokuapp.com/assignment/${this.assignData._id}/canvas_save`, this.canvasObject)
     //   .then(response => {
     //     console.log(response);
     //   })

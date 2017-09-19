@@ -15,7 +15,7 @@ export default {
   name: 'profileCard',
   computed: {
     selectImage() {
-      if (this.$route.name === 'Dashboard' || this.$route.name === 'landingPage') {
+      if (this.$route.name === 'landingPage') {
         return '../../../static/logo.png';
       } else if (this.$store.state.currentUser.type !== 'student') {
         return '../../../static/IMG_0505.jpg';
