@@ -22,4 +22,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  #articleItem {
+    padding: 10px;
+  }
 </style>

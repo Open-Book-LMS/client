@@ -3,6 +3,10 @@
     <form class="new-item-form">
       <label class="form-label" for="name">Name</label>
       <input type="text" name="name" placeholder="Course Item Name" v-model="newItem.name"/>
+      <label class="form-label">Item Dates</label>
+      <div class="date-wrapper">
+        <input type="date" /><input type="date" />
+      </div>
       <label for="description">Description</label>
       <textarea name="description" placeholder="Item Summary..." v-model="newItem.description"></textarea>
       <label for="type">Type</label>
@@ -11,7 +15,7 @@
         <option value="CBC">Drawing Broadcast</option>
       </select>
       <hr />
-      <div class="tool-form">
+      <div v-if="newItem.tool_type === 'ART'" class="tool-form">
         <label for="article-text">Article Text</label>
         <textarea name="article-text" rows="8" cols="80" placeholder="Article text..." v-model="newItem.data.article_text"></textarea>
       </div>
@@ -64,5 +68,10 @@ export default {
   }
   .form-label {
    margin: auto;
+ }
+ .date-wrapper {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
  }
 </style>

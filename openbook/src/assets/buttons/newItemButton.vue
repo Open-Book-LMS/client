@@ -10,11 +10,16 @@ export default {
 </script>
 <style lang="scss" scoped>
   $charcoal-grey: #4a4a4a;
+  $old-pink: #c4688d;
 
   #newItemButton {
     border-bottom: 1px solid $charcoal-grey;
   }
   .new-link {
     text-decoration: none;
+    color: $charcoal-grey;
+  }
+  .new-link:hover {
+    color: $old-pink;
   }
 </style>
