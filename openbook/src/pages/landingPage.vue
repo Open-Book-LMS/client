@@ -17,7 +17,7 @@ export default {
   name: 'landingPage',
   data() {
     return {
-      mainText: 'Hello',
+      mainText: 'Welcome to Open Book, a lightweight, highly customizable Learning Management System. It provides an easy to navigate course structure and simple creation interfaces, for ease of use. The first major educational tool it showcases is a real time Drawing Demonstration tool, useful for online art instruction, a subject that lacks support in online education. The instructor can draw on a canvas that will be broadcast to students in real time, and chat with them during the demonstration. The future goals of the platform center heavily around providing resources for anyone to expand the available course tools, and move to bringing in the code on a per-item basis to avoid feature bloat. Please demo the site for yourself by using the links below to view both the instructor and student views.',
     };
   },
   watch: {
@@ -59,6 +59,7 @@ export default {
     min-height: 200px;
   	background-color: $white;
   	box-shadow: inset 0 1px 3px 0 $black-50;
+    padding-bottom: 10px;
   }
   .left-box {
     margin-top: 10px;
@@ -79,6 +80,7 @@ export default {
   .hero-img {
     width: 100%;
     box-shadow: 0 2px 4px 0 $black-50;
+    margin-bottom: 20px;
   }
   .link-style {
     cursor: pointer;

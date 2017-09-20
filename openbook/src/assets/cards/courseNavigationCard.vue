@@ -24,10 +24,6 @@ export default {
       isStudent: this.$store.state.currentUser.type === 'student',
     };
   },
-  mounted() {
-    // eslint-disable-next-line
-    console.log(this.$store.state.courseNav)
-  },
 };
 </script>
 <style lang="scss" scoped>

@@ -265,8 +265,10 @@ export default {
       })
     },
     sendMessage(message) {
+      this.socket = io.connect('https://open-book-lms.herokuapp.com');
       let name = this.$store.state.currentUser.first_name + ' ' + this.$store.state.currentUser.last_name;
       this.socket.emit('canvas_chat', {name:name, message: message});
+      // this.socket.disconnect('https://open-book-lms.herokuapp.com');
       // Axios.put(`https://open-book-lms.herokuapp.com/`)
     }
   },
