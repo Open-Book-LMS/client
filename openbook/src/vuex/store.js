@@ -128,15 +128,23 @@ const actions = {
     let token = sessionStorage.getItem('token');
     Axios.get(`http://localhost:3000/auth/user/${userId}`, {headers: {'Authorization': `Bearer ${token}`}})
     .then((response) => {
+      if (response.status == 403){
+        this.$route.push('landingPage');
+      } else {
       commit('currentUser', response.data);
       this.dispatch('getCourseList');
+    }
     })
   },
   getCourseList({ commit }) {
     let token = sessionStorage.getItem('token');
     Axios.get(`http://localhost:3000/dashboard/${state.currentUser.id}/courses`, {headers: {'Authorization': `Bearer ${token}`}})
      .then((response) => {
+       if(response.status == 403){
+         this.$route.push('landingPage');
+       } else {
        commit('courseList', response.data);
+     }
      })
   },
   addChatItem({ commit }, chat){
