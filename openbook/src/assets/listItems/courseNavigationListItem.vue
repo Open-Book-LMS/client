@@ -4,7 +4,7 @@
       <router-link class="link-style" :to="{ name: 'courseTool', params: { assignId: itemData._id}}"><span class="item-title">{{itemData.name}}</span></router-link><br />
       <span class="item-due-date" v-if="itemData.end_date">{{itemData.end_date | moment('MMM Do YYYY')}}</span>
       <div class="edit-item" v-if="!isStudent">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <editCourseItemButton :AssignID="itemData._id"></editCourseItemButton>
       </div>
       <div v-if="isStudent && gradable">
         <span class='red-text' :class="{'green-text' : submitted }"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
@@ -14,9 +14,14 @@
   </div>
 </template>
 <script>
+import editCourseItemButton from '../buttons/editCourseItemButton';
+
 export default {
   name: 'courseNavigationListItem',
   props: ['itemData'],
+  components: {
+    editCourseItemButton,
+  },
   data() {
     return {
       isStudent: this.$store.state.currentUser.type === 'student',
@@ -39,6 +44,11 @@ export default {
       if (this.submitted) {
         return this.submitted[0].graded;
       }
+    },
+  },
+  methods: {
+    getCourseInfo(assignId) {
+      this.$store.state.dispatch('getCurrentCourseItem', assignId);
     },
   },
 };

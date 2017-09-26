@@ -8,6 +8,7 @@ import assignmentGradebook from '../components/assignmentGradebook';
 import rosterGradebook from '../components/rosterGradebook';
 import newCourseTool from '../components/newCourseTool';
 import landingPage from '../pages/landingPage';
+import editItem from '../components/editItem';
 
 Vue.use(Router);
 
@@ -37,6 +38,11 @@ export default new Router({
           path: 'content/new',
           name: 'newCourseTool',
           component: newCourseTool,
+        },
+        {
+          path: 'content/:assignId/edit',
+          name: 'editCourseItem',
+          component: editItem,
         },
       ],
     },
