@@ -125,14 +125,16 @@ const actions = {
       commit('studentSubmissions', submissionObj);
     },
   getUserDatabyID({ commit }, userId) {
-    Axios.get(`http://localhost:3000/auth/user/${userId}`)
+    let token = sessionStorage.getItem('token');
+    Axios.get(`http://localhost:3000/auth/user/${userId}`, {headers: {'Authorization': `Bearer ${token}`}})
     .then((response) => {
       commit('currentUser', response.data);
       this.dispatch('getCourseList');
     })
   },
   getCourseList({ commit }) {
-    Axios.get(`http://localhost:3000/dashboard/${state.currentUser.id}/courses`)
+    let token = sessionStorage.getItem('token');
+    Axios.get(`http://localhost:3000/dashboard/${state.currentUser.id}/courses`, {headers: {'Authorization': `Bearer ${token}`}})
      .then((response) => {
        commit('courseList', response.data);
      })

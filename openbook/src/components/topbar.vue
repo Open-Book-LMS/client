@@ -6,16 +6,41 @@
       <dashButton class="button-flex" v-if="!dashButton"></dashButton>
       <gradebookButton class="button-flex" v-if="gradebookButton"></gradebookButton>
       <toCourseButton class="button-flex" v-if="courseButton"></toCourseButton>
+      <loginButton :clickEvent="showLogin" class="button-flex" v-if="authButton"></loginButton>
     </div>
     <div class="line"></div>
+
+    <sweet-modal title="Login" ref="login">
+	     <form class="authForm">
+         <label for="loginEmail">Email:</label>
+         <input name="loginEmail" type="email" v-model="loginUser.email"/>
+         <label for="loginPassword">Password:</label>
+         <input name="loginPassword" type="password" v-model="loginUser.password"/>
+         <button @click.prevent="sendLogin()">Submit</button>
+       </form>
+    </sweet-modal>
+    <sweet-modal title="Register" ref="register">
+      <form class="authForm">
+        <label for="regEmail">Email:</label>
+        <input name="regEmail" type="email" v-model="registerUser.email"/>
+        <label for="regPassword">Password:</label>
+        <input name="regPassword" type="password" v-model="registerUser.password"/>\
+        <label for="regPasswordConfirm">Confirm Password</label>
+        <input type="password" name="regPasswordConfirm" v-model="registerUser.passwordConfirm">
+        <button @click.prevent="sendRegister()">Submit</button>
+      </form>
+    </sweet-modal>
   </div>
 </template>
 <script>
+import Axios from 'axios';
+import SweetModal from 'sweet-modal-vue/src/components/SweetModal';
 import profileCard from '../assets/cards/profileCard';
 import gradebookButton from '../assets/buttons/gradebookButton';
 import toCourseButton from '../assets/buttons/toCourseButton';
 import dashButton from '../assets/buttons/dashButton';
 import landButton from '../assets/buttons/landButton';
+import loginButton from '../assets/buttons/loginButton';
 
 export default {
   name: 'topbar',
@@ -25,34 +50,66 @@ export default {
     toCourseButton,
     dashButton,
     landButton,
+    loginButton,
+    SweetModal,
+  },
+  data() {
+    return {
+      loginUser: {
+        email: '',
+        password: '',
+      },
+      registerUser: {
+        email: '',
+        password: '',
+        passwordConfirm: '',
+      },
+    };
   },
   computed: {
-    //eslint-disable-next-line
-    gradebookButton: function() {
+    gradebookButton() {
       const course = this.route === 'coursePage';
       const courseTool = this.route === 'courseTool';
       return course || courseTool;
     },
-    //eslint-disable-next-line
-    courseButton: function() {
+    courseButton() {
       const gradebookPage = this.route === 'gradebook';
       const assignmentView = this.route === 'assignmentGradebook';
       return gradebookPage || assignmentView;
     },
-    //eslint-disable-next-line
-    dashButton: function() {
+    dashButton() {
       const dashboard = this.route === 'Dashboard';
       const landingPage = this.route === 'landingPage';
       return dashboard || landingPage;
     },
-    //eslint-disable-next-line
-    landButton: function() {
+    landButton() {
       const dashboard = this.route === 'Dashboard';
       return dashboard;
     },
-    //eslint-disable-next-line
-    route: function () {
+    authButton() {
+      const landingPage = this.route === 'landingPage';
+      return landingPage;
+    },
+    route() {
       return this.$route.name;
+    },
+  },
+  methods: {
+    showLogin() {
+      this.$refs.login.open();
+    },
+    sendLogin() {
+      Axios.post('http://localhost:3000/auth/login', this.loginUser)
+      .then((res) => {
+        console.log('login res', res);
+        sessionStorage.setItem('token', res.data.token);
+        this.$store.dispatch('getUserDatabyID', res.data.id);
+        this.$refs.login.close();
+        this.$router.push('/dashboard');
+      });
+    },
+    sendRegister() {
+      console.log('click');
     },
   },
 };
@@ -74,5 +131,8 @@ export default {
   	box-shadow: 0 2px 4px 0 $black-50;
   	background-color: #979797;
     margin-top: 25px;
+  }
+  .authForm {
+    display: block;
   }
 </style>
