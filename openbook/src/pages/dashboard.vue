@@ -2,17 +2,20 @@
   <div id='Dashboard'>
     <!-- <announcementsCard></announcementsCard> -->
     <courseListCard></courseListCard>
+    <authCheck></authCheck>
   </div>
 </template>
 <script>
 import courseListCard from '../assets/cards/courseListCard';
 import announcementsCard from '../assets/cards/announcementsCard';
+import authCheck from '../components/authCheck';
 
 export default {
   name: 'Dashboard',
   components: {
     courseListCard,
     announcementsCard,
+    authCheck,
   },
 };
 </script>
