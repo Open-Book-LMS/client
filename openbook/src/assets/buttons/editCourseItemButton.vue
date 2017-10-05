@@ -1,12 +1,12 @@
 <template>
-  <div id='registerButton'>
+  <div id='editCourseItemButton'>
 
   </div>
 </template>
 <script>
 export default {
-  name: 'registerButton',
-};
+  name: 'editCourseItemButton',
+}
 </script>
 <style lang="scss" scoped>
 </style>

@@ -6,7 +6,8 @@
       <dashButton class="button-flex" v-if="!dashButton"></dashButton>
       <gradebookButton class="button-flex" v-if="gradebookButton"></gradebookButton>
       <toCourseButton class="button-flex" v-if="courseButton"></toCourseButton>
-      <loginButton :clickEvent="showLogin" class="button-flex" v-if="authButton"></loginButton>
+      <loginButton :clickEvent="showLogin" :isLogin="true" class="button-flex" v-if="authButton"></loginButton>
+      <loginButton :clickEvent="showRegister" :isLogin="false" class="button-flex" v-if="authButton"></loginButton>
     </div>
     <div class="line"></div>
 
@@ -24,7 +25,7 @@
         <label for="regEmail">Email:</label>
         <input name="regEmail" type="email" v-model="registerUser.email"/>
         <label for="regPassword">Password:</label>
-        <input name="regPassword" type="password" v-model="registerUser.password"/>\
+        <input name="regPassword" type="password" v-model="registerUser.password"/>
         <label for="regPasswordConfirm">Confirm Password</label>
         <input type="password" name="regPasswordConfirm" v-model="registerUser.passwordConfirm">
         <button @click.prevent="sendRegister()">Submit</button>
@@ -97,6 +98,9 @@ export default {
   methods: {
     showLogin() {
       this.$refs.login.open();
+    },
+    showRegister() {
+      this.$refs.register.open();
     },
     sendLogin() {
       Axios.post('http://localhost:3000/auth/login', this.loginUser)

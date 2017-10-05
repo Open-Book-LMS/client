@@ -1,22 +1,31 @@
 <template>
-  <div id='loginButton'>
-    <div @click="clickEvent()" class="land-button">
+  <div id='loginButton' class="login-button" :class="{'register-button': !isLogin}">
+    <div @click="clickEvent()" class="land-button" v-if="isLogin">
       <span class="land-text">Login</span>
+    </div>
+    <div @click="clickEvent()" class="land-button" v-if="!isLogin">
+      <span class="land-text">Register</span>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: 'loginButton',
-  props: ['clickEvent'],
+  props: ['clickEvent', 'isLogin'],
 };
 </script>
 <style lang="scss" scoped>
 $slate-green: #65826f;
 $black-50: rgba(0, 0, 0, 0.5);
 
-#loginButton {
+// #loginButton {
+//   grid-column: 5 / span 1;
+// }
+.login-button {
   grid-column: 5 / span 1;
+}
+.register-button {
+  grid-column: 7 / span 1;
 }
 .land-button {
   height: 41px;
